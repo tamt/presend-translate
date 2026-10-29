@@ -1,7 +1,7 @@
 #presend-translate-input-button {
   all: initial;
   position: fixed;
-  z-index: 2147483646;
+  z-index: 2147483647;
   width: 26px;
   height: 26px;
   display: grid;

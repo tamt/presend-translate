@@ -35,6 +35,9 @@
   addEventListener('scroll', positionIcon, true);
   addEventListener('resize', positionIcon);
   chrome.storage.onChanged.addListener(() => refreshIconAccess());
+  // Keep the badge the last element child of <html>, so a page portal/modal added after us
+  // cannot paint over it: at the badge's maximum z-index the only way to win is DOM order.
+  new MutationObserver(bringToFront).observe(document.documentElement, { childList: true });
   focusProbe = setInterval(() => {
     const field = getActiveEditable();
     if (!field || field === activeField) return;
@@ -85,8 +88,15 @@
   }
 
   function handleFocusIn(event) {
-    const field = editableFrom(event.composedPath?.()[0] || event.target);
-    if (!field) return;
+    const target = event.composedPath?.()[0] || event.target;
+    const field = editableFrom(target);
+    if (!field) {
+      // Focus landed on a non-editable element (a read-only input, a link, a button, ...).
+      // Drop the badge and its anchor so it neither shows here nor re-anchors to a stale
+      // field on a later scroll/resize. Never hide when our own action button is focused.
+      if (target !== icon) { activeField = null; hideIcon(); }
+      return;
+    }
     activeField = field;
     ensureIcon();
     positionIcon();
@@ -96,12 +106,17 @@
   function handleFocusOut() {
     setTimeout(() => {
       if (document.activeElement === icon || getActiveEditable()) return;
+      activeField = null;
       hideIcon();
     }, 0);
   }
 
   function editableFrom(element) {
     if (!(element instanceof Element)) return null;
+    // A read-only input/textarea is focusable but the user cannot type into it, so it
+    // never fits "translate what you are about to send". Skip it. (A read-only
+    // contenteditable already reports isContentEditable === false, so it is excluded above.)
+    if (element.readOnly === true) return null;
     const type = String(element.type || '').toLowerCase();
     return element.isContentEditable || element.tagName === 'TEXTAREA' ||
       (element.tagName === 'INPUT' && (!type || ['text', 'search', 'email', 'url'].includes(type))) ? element : null;
@@ -182,9 +197,20 @@
     top = Math.max(inset, Math.min(innerHeight - size - inset, top));
     icon.style.top = `${top}px`;
     icon.hidden = false;
+    bringToFront();
   }
 
   function hideIcon() { if (icon) icon.hidden = true; }
+
+  // Re-append the badge as the last child of <html>. Within the root stacking context every
+  // page overlay competes by z-index; the badge already uses the 32-bit maximum, so the only
+  // way a portal can still cover it is by matching that maximum and coming later in the DOM.
+  // Appending last wins that tie. Skip while the badge itself has focus so we never steal it.
+  function bringToFront() {
+    if (!icon?.isConnected) return;
+    const root = document.documentElement;
+    if (root.lastElementChild !== icon && document.activeElement !== icon) root.appendChild(icon);
+  }
 
   function setIconState(state, options = {}) {
     if (!icon) return;

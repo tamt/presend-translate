@@ -456,6 +456,54 @@ async function main() {
       assert.ok(Math.abs(outcome.iconCenter - outcome.fieldCenter) <= 4, `badge not vertically centered in the single-line input (iconCenter ${outcome.iconCenter}, fieldCenter ${outcome.fieldCenter})`);
     });
 
+    await check('E4. Read-only fields do not get the badge', async () => {
+      // Show the badge on a real editable field first (focus events fire for editable inputs).
+      await inMain(`document.getElementById('message-title').focus(); true`, false);
+      await waitFor(() => inContent(`(() => { const i = document.getElementById('presend-translate-input-button'); return i && !i.hidden ? i.dataset.state : 'missing'; })()`), (v) => v === 'ready', 8000);
+      // Headless does not dispatch focus events for a programmatic focus() on a read-only
+      // input in a background tab, so drive the content script's focusin handler directly.
+      // If readOnly were not excluded, handleFocusIn would re-anchor the badge to the field
+      // and leave it visible; the correct behavior is to hide it.
+      await inContent(`(() => { document.getElementById('readonly-field').dispatchEvent(new FocusEvent('focusin', { bubbles: true })); return true; })()`, false);
+      const outcome = await waitFor(
+        () => inContent(`(() => {
+          const i = document.getElementById('presend-translate-input-button');
+          const field = document.getElementById('readonly-field');
+          return { readOnly: field ? field.readOnly : null, hidden: !i || i.hidden, state: i ? i.dataset.state : null };
+        })()`),
+        (value) => value.readOnly === true && value.hidden === true,
+        4000
+      );
+      assert.ok(outcome.readOnly === true, 'fixture regressed: #readonly-field must carry the readonly attribute');
+      assert.ok(outcome.hidden === true, `badge stayed visible for a read-only field (last=${JSON.stringify(outcome)})`);
+    });
+
+    await check('E5. The badge stays on top of a page overlay that ties the maximum z-index', async () => {
+      await inMain(`document.getElementById('message-title').focus(); true`, false);
+      await waitFor(() => inContent(`(() => { const i = document.getElementById('presend-translate-input-button'); return i && !i.hidden ? i.dataset.state : 'missing'; })()`), (v) => v === 'ready', 8000);
+      // A portal appended after us with the same maximum z-index is the only thing that can
+      // beat the badge by DOM order; the MutationObserver + bringToFront must re-append it last.
+      const probe = await inContent(`(() => {
+        const i = document.getElementById('presend-translate-input-button');
+        const overlay = document.createElement('div');
+        overlay.id = 'e5-overlay';
+        overlay.style.cssText = 'position:fixed;z-index:2147483647;top:0;left:0;width:10px;height:10px';
+        document.documentElement.appendChild(overlay);
+        return { zIndex: getComputedStyle(i).zIndex };
+      })()`);
+      assert.equal(probe.zIndex, '2147483647', 'badge z-index is not the 32-bit maximum');
+      const outcome = await waitFor(
+        () => inContent(`(() => {
+          const i = document.getElementById('presend-translate-input-button');
+          return { badgeLast: document.documentElement.lastElementChild === i, overlayPresent: !!document.getElementById('e5-overlay') };
+        })()`),
+        (value) => value.badgeLast === true,
+        2000
+      );
+      assert.ok(outcome.badgeLast === true, `badge was not re-appended above the later overlay (last=${JSON.stringify(outcome)})`);
+      await inContent(`(() => { document.getElementById('e5-overlay')?.remove(); return true; })()`, false);
+    });
+
     await check('F. CHECK_ACCESS resolves the global default for the fixture origin', async () => {
       const access = await readAccess();
       assert.equal(access.ok, true);
