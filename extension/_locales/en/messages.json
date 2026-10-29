@@ -1,0 +1,7 @@
+{
+  "extensionName": { "message": "PreSend Translate" },
+  "extensionDescription": { "message": "Translate the focused input, review it, then send it yourself." },
+  "actionTitle": { "message": "PreSend Translate" },
+  "contextMenuTitle": { "message": "Translate this input" },
+  "commandDescription": { "message": "Translate the focused input" }
+}

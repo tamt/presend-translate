@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Release packaging artifacts (store ZIP + staging)
+release/
+
+# Browser acceptance artifacts (Chrome for Testing profiles / temp dirs)
+.tmp-chrome-profile*/
+presend-smoke-*/
+
+# Design/inspection tool cache
+.taste-skill/
+
+# Local editor / AI workspace state
+.qoder/
+.vscode/
+.idea/
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Internal working docs (kept local, not published to the repo)
+PROJECT_MEMORY.md
+PreSend Translate Construction Document.md

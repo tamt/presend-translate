@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PreSend input fixture</title>
+  <style>
+    body { margin: 40px; max-width: 760px; font: 16px/1.5 system-ui,sans-serif; color: #172023; }
+    label { display: grid; gap: 8px; margin: 26px 0; font-weight: 650; }
+    input, textarea, [contenteditable] { border: 1px solid #aeb9bc; border-radius: 8px; padding: 14px; font: inherit; font-weight: 400; }
+    textarea { min-height: 130px; resize: vertical; }
+    [contenteditable] { min-height: 90px; }
+    /* Layered composer: padding/min-height live on the wrapper, the contenteditable
+       node itself is only one short line (~21px), like ProseMirror/Tiptap chat inputs. */
+    .composer { border: 1px solid #aeb9bc; border-radius: 10px; padding: 11px 12px; min-height: 44px; overflow-y: auto; position: relative; }
+    .composer .field { border: 0; padding: 0; min-height: 0; font: inherit; font-weight: 400; line-height: 21px; }
+    .composer .actions { position: absolute; bottom: 6px; right: 8px; display: flex; gap: 6px; }
+    .composer .actions span { width: 26px; height: 26px; border-radius: 50%; background: #d7dedf; }
+  </style>
+</head>
+<body>
+  <h1>Focused input translation fixture</h1>
+  <p>Load the extension, focus each editor, and confirm the floating “译” action appears in its upper-right corner.</p>
+  <label>Plain input<input id="message-title" value="Hello from a plain input"></label>
+  <label>Textarea<textarea id="message-body">Hello from a multiline textarea.
+This line should remain separate.</textarea></label>
+  <label>Rich editor<div id="rich-message" contenteditable="true">Hello from a contenteditable editor.</div></label>
+  <label>Short layered composer
+    <div class="composer">
+      <div id="composer-input" class="field" contenteditable="true" role="textbox" data-doc-empty="true"><br></div>
+      <div class="actions"><span></span><span></span></div>
+    </div>
+  </label>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "default_locale": "en",
+  "name": "__MSG_extensionName__",
+  "version": "0.3.0",
+  "description": "__MSG_extensionDescription__",
+  "permissions": ["storage", "activeTab", "scripting", "contextMenus"],
+  "optional_host_permissions": [
+    "https://*/*",
+    "http://*/*",
+    "http://localhost/*",
+    "http://127.0.0.1/*"
+  ],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*", "http://*/*"],
+      "all_frames": true,
+      "js": ["i18n.js", "languages.js", "content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "__MSG_actionTitle__",
+    "default_popup": "popup.html"
+  },
+  "commands": {
+    "translate-focused-input": {
+      "description": "__MSG_commandDescription__"
+    }
+  },
+  "options_page": "options.html",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png",
+    "512": "icons/icon512.png"
+  }
+}

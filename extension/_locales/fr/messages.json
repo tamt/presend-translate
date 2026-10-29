@@ -1,0 +1,7 @@
+{
+  "extensionName": { "message": "PreSend Translate" },
+  "extensionDescription": { "message": "Traduisez le champ actif, vérifiez le texte, puis envoyez-le vous-même." },
+  "actionTitle": { "message": "PreSend Translate" },
+  "contextMenuTitle": { "message": "Traduire ce champ" },
+  "commandDescription": { "message": "Traduire le champ actif" }
+}

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Privacy Policy — PreSend Translate</title>
+  <meta name="description" content="Privacy policy for the PreSend Translate Chrome extension: what data it processes, where it goes, and how it is stored and deleted.">
+  <link rel="icon" type="image/png" sizes="128x128" href="extension/icons/icon128.png">
+  <style>
+    :root {
+      --accent:#126779; --accent-dark:#0b4652; --text:#131416; --muted:#5d6264;
+      --ground:#eef3f4; --surface:#fff; --rule:#e5e9ea;
+      --font:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;color:var(--text);font:16px/1.65 var(--font);background:var(--ground);-webkit-font-smoothing:antialiased}
+    a{color:var(--accent)}
+    a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    .masthead{background:linear-gradient(135deg,#17809a 0%,var(--accent) 55%,var(--accent-dark) 100%);color:#fff;padding:44px 24px}
+    .masthead .inner{max-width:820px;margin:0 auto;display:flex;align-items:center;gap:18px}
+    .mark{width:56px;height:56px;flex:none;border-radius:14px;object-fit:contain;filter:drop-shadow(0 6px 16px rgba(0,0,0,.28))}
+    .masthead h1{margin:0;font-size:30px;line-height:1.15;font-weight:800;letter-spacing:-.5px}
+    .masthead p{margin:4px 0 0;font-size:15px;opacity:.92}
+    main{max-width:820px;margin:0 auto;padding:36px 24px 72px}
+    .card{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:32px 34px 40px;box-shadow:0 12px 34px rgba(15,23,26,.06)}
+    .updated{font-size:14px;color:var(--muted);margin:0 0 24px}
+    h2{font-size:19px;margin:32px 0 8px;letter-spacing:-.2px}
+    h2:first-of-type{margin-top:0}
+    p{margin:0 0 12px}
+    ul{margin:0 0 12px;padding-left:22px}
+    li{margin:6px 0}
+    .lede{font-size:17px;color:#22262a}
+    .callout{border-left:4px solid var(--accent);background:#f1f7f8;border-radius:0 10px 10px 0;padding:14px 18px;margin:0 0 24px}
+    .callout p:last-child{margin-bottom:0}
+    table{width:100%;border-collapse:collapse;margin:8px 0 16px;font-size:15px}
+    caption{text-align:left;color:var(--muted);font-size:14px;margin-bottom:8px}
+    th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+    th{background:#f6f8f8;font-weight:600}
+    .no{color:var(--muted)}
+    .yes{color:var(--accent-dark);font-weight:600}
+    footer{max-width:820px;margin:0 auto;padding:0 24px 56px;color:var(--muted);font-size:13px}
+    @media (max-width:560px){.card{padding:24px 20px 30px}.masthead h1{font-size:24px}}
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <div class="inner">
+      <img class="mark" src="extension/icons/icon128.png" alt="PreSend Translate icon">
+      <div>
+        <h1>Privacy Policy</h1>
+        <p>PreSend Translate &mdash; Chrome extension</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="card">
+      <p class="updated">Last updated: 2026-10-29</p>
+
+      <p class="lede">PreSend Translate puts a small button next to the text field you are focused on. When you use it, the extension translates the text you have typed using an AI service <em>you</em> configure, and writes the translation back into the same box so you can review it before you send the message yourself.</p>
+
+      <div class="callout">
+        <p><strong>The short version:</strong> the only text that ever leaves your device is the text in the input box you chose to translate, and it goes only to the AI endpoint you set up &mdash; never to a server operated by us. We do not have a backend, do not run analytics, and do not sell or share your data.</p>
+      </div>
+
+      <h2>What data is processed</h2>
+      <table>
+        <caption>Categories of data the extension handles, and where each one goes.</caption>
+        <thead>
+          <tr><th scope="col">Data</th><th scope="col">Collected / transmitted</th><th scope="col">Where it goes</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Text of the focused input box (the message, email or comment you are writing)</td>
+            <td class="yes">Sent to the AI endpoint you configure</td>
+            <td>Only the third-party AI service you selected, to perform the translation you requested</td>
+          </tr>
+          <tr>
+            <td>Authentication information (the API key for your chosen AI service)</td>
+            <td class="yes">Stored locally; sent to that same endpoint</td>
+            <td>Sent only to the endpoint the key belongs to, as the request credential</td>
+          </tr>
+          <tr>
+            <td>Website content (the text of the single field you act on)</td>
+            <td class="yes">Read only on your explicit action</td>
+            <td>Same AI endpoint as above; never read in the background</td>
+          </tr>
+          <tr>
+            <td>Settings: source/target language, global on/off default, per-site rules (normalized origins only)</td>
+            <td class="no">Stored locally only</td>
+            <td>Your device (Chrome extension storage); never transmitted</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>What is <em>not</em> collected</h2>
+      <p>The extension does <strong>not</strong> collect or transmit:</p>
+      <ul>
+        <li>Personally identifiable information (name, address, email address, age, or identification numbers)</li>
+        <li>Health, financial, or payment information</li>
+        <li>Location, IP address, or GPS coordinates</li>
+        <li>Browsing history or the list of pages you visit</li>
+        <li>Activity data such as clicks, scroll position, mouse movement, or keystroke logging</li>
+        <li>Analytics, telemetry, or tracking of any kind</li>
+      </ul>
+      <p>It reads only the single editable field you act on, and only after you explicitly trigger a translation. It does not scan pages in the background, read incoming messages, or capture surrounding page text. Site rules store normalized origins only &mdash; never field values, placeholders, labels, or per-input fingerprints.</p>
+
+      <h2>Where your data goes</h2>
+      <p>When you translate with an AI service, the text of the focused field (and your API key, as the credential) is sent directly from your browser to the endpoint you configured. The extension does not route this through any server we operate, and it never silently switches to a different provider. If you use Chrome's built-in translation instead, the field text stays on your device.</p>
+
+      <h2>How data is stored</h2>
+      <p>Your settings, site rules, and AI service configuration (including API keys) are kept in your local Chrome extension storage. They are not synchronized to the cloud by us, not injected into web pages, not included in any export, and not intentionally logged. Local extension storage is convenient but is not a hardware-backed secret vault.</p>
+
+      <h2>Security note</h2>
+      <p>We strongly recommend using an AI endpoint over <strong>HTTPS</strong>. If you explicitly configure a remote <strong>HTTP</strong> endpoint, both your API key and the translated text travel unencrypted and could be read or modified by networks between your browser and that endpoint.</p>
+
+      <h2>How long data is kept &amp; deletion</h2>
+      <p>The extension keeps your settings and credentials in local storage until you change them. Translated text is not stored by the extension beyond what is written back into your input box. <strong>Uninstalling the extension removes all of its local data through Chrome.</strong> Any text sent to your chosen AI service is governed by that service's own retention policy, not ours.</p>
+
+      <h2>Third-party services</h2>
+      <p>PreSend Translate does not include advertising, analytics, or social-media trackers. The only third party involved is the AI service you choose to configure. Your use of that service, and how it handles the text and key you send it, is covered by that provider's own terms and privacy policy.</p>
+
+      <h2>Commitments</h2>
+      <ul>
+        <li>We do not sell or transfer your data to third parties outside the function described here.</li>
+        <li>We do not use or transfer your data for purposes unrelated to the extension's single purpose.</li>
+        <li>We do not use or transfer your data to determine creditworthiness or for lending purposes.</li>
+      </ul>
+
+      <h2>Children</h2>
+      <p>This extension is a general-purpose translation tool and is not directed to children. It does not knowingly collect personal information from anyone.</p>
+
+      <h2>Changes to this policy</h2>
+      <p>If this privacy policy changes, the "Last updated" date at the top of this page will be revised. Material changes will be noted in the extension's store listing.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about this policy: <a href="mailto:itamt@qq.com">itamt@qq.com</a></p>
+    </div>
+  </main>
+
+  <footer>
+    <p>This page describes the privacy practices of the PreSend Translate Chrome extension. It is the policy referenced in the Chrome Web Store listing.</p>
+  </footer>
+</body>
+</html>

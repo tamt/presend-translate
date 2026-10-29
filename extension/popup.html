@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PreSend Translate</title>
+  <link rel="stylesheet" href="ui.css">
+</head>
+<body class="popup-body">
+  <main class="popup">
+    <header class="popup-header">
+      <img class="brand-mark" src="icons/icon128.png" alt="" aria-hidden="true">
+      <div><h1>PreSend Translate</h1><p id="origin" data-i18n="currentPage">Current page</p></div>
+    </header>
+    <section id="effective-state" class="effective-state" aria-live="polite">
+      <span class="effective-dot"></span>
+      <div><strong id="effective-title" data-i18n="checking">Checking translation access…</strong><small id="effective-source"></small></div>
+    </section>
+    <section id="refresh-notice" class="refresh-notice" hidden>
+      <div><strong data-i18n="refreshRequired">Refresh this page</strong><small data-i18n="refreshRequiredHelp">PreSend was installed after this page opened. Refresh once to show the input translation button.</small></div>
+      <button id="refresh-page" class="primary" type="button" data-i18n="refreshPage">Refresh page</button>
+    </section>
+    <section id="restricted-notice" class="refresh-notice restricted" hidden>
+      <div><strong data-i18n="pageUnsupported">This page is not supported</strong><small data-i18n="pageUnsupportedHelp">Browser internal pages and extension stores do not allow input translation.</small></div>
+    </section>
+    <section class="popup-section rule-section">
+      <div class="section-heading"><strong data-i18n="globalDefault">Global default</strong><span data-i18n="fallback">Fallback</span></div>
+      <div class="segmented two" role="group" aria-label="Global default"><button type="button" data-global="true" data-i18n="on">On</button><button type="button" data-global="false" data-i18n="off">Off</button></div>
+      <small data-i18n="globalDefaultHelp">Used when this site does not override it.</small>
+    </section>
+    <section class="popup-section rule-section">
+      <div class="section-heading"><strong data-i18n="thisSite">This site</strong><span id="site-state" data-i18n="usesGlobalDefault">Uses global default</span></div>
+      <div class="segmented three" role="group" aria-label="This site rule"><button type="button" data-site="inherit" data-i18n="useGlobal">Use global</button><button type="button" data-site="true" data-i18n="alwaysOn">Always on</button><button type="button" data-site="false" data-i18n="alwaysOff">Always off</button></div>
+    </section>
+    <footer><button id="settings" class="text-button" type="button" data-i18n="openSettings">Open settings</button><button id="shortcut" class="shortcut-link" type="button" data-i18n="shortcutChecking">Shortcut: checking…</button></footer>
+    <p id="status" class="status" role="status"></p>
+  </main>
+  <script src="i18n.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

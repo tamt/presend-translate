@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PreSend Translate settings</title>
+  <link rel="stylesheet" href="ui.css">
+</head>
+<body class="options-body">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><img class="brand-mark" src="icons/icon128.png" alt=""><div><strong>PreSend</strong><small data-i18n="brandTagline">Translate before sending</small></div></div>
+      <nav aria-label="Settings sections">
+        <button class="nav-item active" data-panel="general" data-i18n="general">General</button>
+        <button class="nav-item" data-panel="services" data-i18n="aiServices">AI services</button>
+        <button class="nav-item" data-panel="sites" data-i18n="sites">Sites</button>
+        <button class="nav-item" data-panel="privacy" data-i18n="privacy">Privacy</button>
+      </nav>
+      <div class="sidebar-foot"><span data-i18n="version">Version</span> 0.3.0</div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar"><button id="menu" class="menu-button" data-i18n="menu">Menu</button><span id="top-title" data-i18n="general">General</span><span class="save-state" id="save-state" data-i18n="savedLocally">Saved locally</span></header>
+      <main class="sheet">
+        <section id="general" class="screen active">
+          <div class="title-row"><div><h1 data-i18n="general">General</h1><p data-i18n="generalDescription">Choose when translation runs and where the result goes.</p></div><button id="save-general" class="primary" data-i18n="saveChanges">Save changes</button></div>
+          <div class="settings-row">
+            <div class="setting-copy"><h2 data-i18n="translationAccess">Translation access</h2><p data-i18n="translationAccessDescription">This is the global default. A site override takes priority.</p></div>
+            <div class="setting-panel"><label class="switch-row"><span><strong data-i18n="globalDefault">Global default</strong><small data-i18n="globalDefaultHelp">Used when the current site does not override it.</small></span><input id="enabled" type="checkbox" role="switch"></label></div>
+          </div>
+          <div class="settings-row">
+            <div class="setting-copy"><h2 data-i18n="translationRoute">Translation route</h2><p data-i18n="translationRouteDescription">Built-in translation stays on this device. AI services send text only to the selected endpoint.</p></div>
+            <div class="setting-panel form-stack">
+              <label><span data-i18n="translationService">Translation service</span><select id="provider"></select></label>
+              <label><span data-i18n="targetLanguage">Target language</span><select id="target"></select></label>
+              <p class="field-note" id="provider-note"></p>
+            </div>
+          </div>
+          <div class="settings-row">
+            <div class="setting-copy"><h2 data-i18n="keyboardShortcut">Keyboard shortcut</h2><p>The browser controls shortcut assignment. PreSend displays only the shortcut that is actually assigned.</p></div>
+            <div class="setting-panel shortcut-row"><span id="shortcut-value" class="shortcut-value">Checking…</span><button id="shortcuts" class="secondary" data-i18n="manageInBrowser">Manage in browser</button></div>
+          </div>
+        </section>
+
+        <section id="services" class="screen">
+          <div class="title-row"><div><h1 data-i18n="aiServices">AI services</h1><p>Configure OpenAI-compatible models without exposing keys to web pages.</p></div><button id="add-profile" class="primary" data-i18n="addService">Add service</button></div>
+          <div class="service-layout">
+            <div class="service-list" id="profile-list"></div>
+            <form id="profile-form" class="service-editor">
+              <div class="editor-head"><div><h2 id="profile-title">New AI service</h2><p>OpenAI-compatible chat completions</p></div><label class="mini-switch"><input id="profile-enabled" type="checkbox" role="switch"><span>Enabled</span></label></div>
+              <div class="form-grid">
+                <label><span data-i18n="serviceName">Service name</span><input id="profile-name" required maxlength="60" placeholder="DeepSeek"></label>
+                <label><span data-i18n="model">Model</span><input id="profile-model" required placeholder="deepseek-chat"></label>
+                <label class="span-2">API endpoint<input id="profile-endpoint" required type="url" aria-describedby="endpoint-help endpoint-warning endpoint-error" placeholder="https://api.deepseek.com/chat/completions"><small id="endpoint-help">Use a complete OpenAI-compatible chat-completions URL.</small><small id="endpoint-warning" class="field-warning" role="status"></small><small id="endpoint-error" class="field-error" role="alert"></small></label>
+                <label class="span-2">API key<span class="secret-field"><input id="profile-key" type="password" autocomplete="off" placeholder="Stored on this device only"><button id="show-key" type="button" class="text-button">Show</button></span></label>
+                <label>Temperature<input id="profile-temperature" type="number" min="0" max="2" step="0.1" value="0.1"></label>
+                <label>Timeout (seconds)<input id="profile-timeout" type="number" min="5" max="120" value="30"></label>
+                <label class="span-2">System prompt<textarea id="profile-prompt" rows="5"></textarea></label>
+              </div>
+              <div class="form-actions"><button id="test-profile" type="button" class="secondary" data-i18n="testService">Test service</button><span id="test-result" class="inline-status"></span><button id="delete-profile" type="button" class="danger" data-i18n="delete">Delete</button><button type="submit" class="primary" data-i18n="saveService">Save service</button></div>
+            </form>
+          </div>
+        </section>
+
+        <section id="sites" class="screen">
+          <div class="title-row"><div><h1 data-i18n="sites">Sites</h1><p>Exact-origin overrides. Each site can inherit the global default, stay always on, or stay always off.</p></div></div>
+          <div class="rule-table"><div class="rule-head"><span>Origin</span><span>State</span><span>Updated</span><span></span></div><div id="site-rules"></div></div>
+        </section>
+
+        <section id="privacy" class="screen">
+          <div class="title-row"><div><h1 data-i18n="privacy">Privacy</h1><p>The extension reads one focused field only when you ask it to translate.</p></div></div>
+          <div class="privacy-grid">
+            <article><h2>Built-in translation</h2><p>Text stays on your device. Chrome may download a language model the first time a language pair is used.</p></article>
+            <article><h2>AI translation</h2><p>Text goes to the endpoint you select. PreSend never switches to another remote provider silently.</p></article>
+            <article><h2>API keys</h2><p>Keys are stored in local extension storage, excluded from synchronized settings and never injected into a page.</p></article>
+            <article><h2>Site rules</h2><p>Rules contain normalized site origins only. Typed field values and surrounding page text are never stored.</p></article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="i18n.js"></script>
+  <script src="rules.js"></script>
+  <script src="providers.js"></script>
+  <script src="languages.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

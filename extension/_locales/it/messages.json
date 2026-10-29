@@ -1,0 +1,7 @@
+{
+  "extensionName": { "message": "PreSend Translate" },
+  "extensionDescription": { "message": "Traduci il campo attivo, controlla il testo e invialo personalmente." },
+  "actionTitle": { "message": "PreSend Translate" },
+  "contextMenuTitle": { "message": "Traduci questo campo" },
+  "commandDescription": { "message": "Traduci il campo attivo" }
+}

@@ -1,0 +1,7 @@
+{
+  "extensionName": { "message": "PreSend Translate" },
+  "extensionDescription": { "message": "Übersetzt das aktive Eingabefeld. Prüfen Sie den Text und senden Sie ihn selbst." },
+  "actionTitle": { "message": "PreSend Translate" },
+  "contextMenuTitle": { "message": "Dieses Eingabefeld übersetzen" },
+  "commandDescription": { "message": "Aktives Eingabefeld übersetzen" }
+}

@@ -1,0 +1,42 @@
+#presend-translate-input-button {
+  all: initial;
+  position: fixed;
+  z-index: 2147483646;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(15, 23, 24, 0.18);
+  border-radius: 6px;
+  background: #126779;
+  color: #ffffff;
+  font: 600 11px/1 system-ui, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18); /* taste-skill-ignore: the button floats over arbitrary third-party pages. */
+  user-select: none;
+}
+
+#presend-translate-input-button:hover { background: #0d5665; }
+#presend-translate-input-button:active { transform: translateY(1px); }
+#presend-translate-input-button:focus-visible { outline: 2px solid #ffffff; outline-offset: 2px; }
+#presend-translate-input-button:disabled { background: #8e999b; cursor: not-allowed; opacity: 0.72; }
+#presend-translate-input-button[data-state=checking] { background: #52666a; color: #ffffff; }
+#presend-translate-input-button[data-state=translating] { background: #126779; cursor: wait; opacity: 1; }
+#presend-translate-input-button[data-state=translating]::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255,255,255,.38);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: presend-translate-spin .7s linear infinite;
+}
+#presend-translate-input-button[data-state=success] { background: #1e704b; color: #ffffff; opacity: 1; }
+#presend-translate-input-button[data-state=error] { background: #b4232a; color: #ffffff; opacity: 1; }
+#presend-translate-input-button[data-state=empty] { background: #8a5b12; color: #ffffff; opacity: 1; }
+#presend-translate-input-button[hidden] { display: none; }
+
+@keyframes presend-translate-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  #presend-translate-input-button[data-state=translating]::before { animation-duration: 1.5s; }
+}

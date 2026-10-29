@@ -1,0 +1,7 @@
+{
+  "extensionName": { "message": "PreSend 发送前翻译" },
+  "extensionDescription": { "message": "翻译当前输入框，检查译文后由你自行发送。" },
+  "actionTitle": { "message": "PreSend 发送前翻译" },
+  "contextMenuTitle": { "message": "翻译此输入框" },
+  "commandDescription": { "message": "翻译当前输入框" }
+}

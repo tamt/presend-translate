@@ -1,0 +1,13 @@
+{
+  "name": "presend-translate",
+  "version": "0.3.0",
+  "private": true,
+  "description": "Chrome extension that translates a focused input before the user sends it.",
+  "scripts": {
+    "test": "node tests/unit.test.js",
+    "test:chrome": "node tests/chrome-smoke.test.js",
+    "test:chrome:headed": "node tests/chrome-smoke.test.js --headed",
+    "screenshots": "node tests/capture-store-screenshots.js",
+    "check": "node --check background.js && node --check content.js && node --check providers.js && node --check rules.js && node --check i18n.js && node --check languages.js && node --check popup.js && node --check options.js && node --check welcome.js && node --check tests/chrome-smoke.test.js && node --check tests/capture-store-screenshots.js && node tests/unit.test.js"
+  }
+}

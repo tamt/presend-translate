@@ -1,0 +1,7 @@
+{
+  "extensionName": { "message": "PreSend Translate" },
+  "extensionDescription": { "message": "入力欄を翻訳し、内容を確認してから自分で送信します。" },
+  "actionTitle": { "message": "PreSend Translate" },
+  "contextMenuTitle": { "message": "この入力欄を翻訳" },
+  "commandDescription": { "message": "フォーカス中の入力欄を翻訳" }
+}
