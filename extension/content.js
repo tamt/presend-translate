@@ -171,7 +171,16 @@
     const inset = 6;
     icon.style.width = `${width}px`;
     icon.style.left = `${Math.max(inset, Math.min(innerWidth - width - inset, box.right - width - inset))}px`;
-    icon.style.top = `${Math.max(inset, Math.min(innerHeight - size - inset, box.top + inset))}px`;
+    // Vertically center the badge on the editable node itself. A plain single-line input
+    // (field box == visible box) becomes truly centered; a layered composer keeps its
+    // content node at the top of the wrapper, so the badge stays near the top and clear of
+    // bottom-anchored send/mic controls. Clamp inside the container so the badge can never
+    // escape the visible field.
+    const margin = 2;
+    let top = field.top + field.height / 2 - size / 2;
+    top = Math.max(box.top + margin, Math.min(top, box.bottom - size - margin));
+    top = Math.max(inset, Math.min(innerHeight - size - inset, top));
+    icon.style.top = `${top}px`;
     icon.hidden = false;
   }
 

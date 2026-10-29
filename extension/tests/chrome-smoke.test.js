@@ -436,6 +436,26 @@ async function main() {
       assert.ok(Math.abs(outcome.iconTop - outcome.boxTop) < 20, `badge not anchored to the container top (iconTop ${outcome.iconTop}, boxTop ${outcome.boxTop})`);
     });
 
+    await check('E3. Plain single-line input centers the badge vertically (not pinned to the top)', async () => {
+      await inMain(`document.getElementById('message-title').focus(); true`, false);
+      const outcome = await waitFor(
+        () => inContent(`(() => {
+          window.dispatchEvent(new Event('scroll'));
+          const i = document.getElementById('presend-translate-input-button');
+          const field = document.getElementById('message-title');
+          if (!i || !field) return null;
+          const fr = field.getBoundingClientRect(), ir = i.getBoundingClientRect();
+          return { hidden: i.hidden, state: i.dataset.state, fieldHeight: Math.round(fr.height), fieldCenter: Math.round(fr.top + fr.height / 2), iconCenter: Math.round(ir.top + ir.height / 2) };
+        })()`),
+        (value) => value && !value.hidden && value.state === 'ready',
+        8000
+      );
+      assert.ok(outcome && outcome.state === 'ready' && !outcome.hidden, `action not ready for the plain input (last=${JSON.stringify(outcome)})`);
+      assert.ok(outcome.fieldHeight < 60, `fixture regressed: the plain input should be short, got ${outcome.fieldHeight}px`);
+      // A plain input has no wrapper, so the badge should sit on the field's own vertical center.
+      assert.ok(Math.abs(outcome.iconCenter - outcome.fieldCenter) <= 4, `badge not vertically centered in the single-line input (iconCenter ${outcome.iconCenter}, fieldCenter ${outcome.fieldCenter})`);
+    });
+
     await check('F. CHECK_ACCESS resolves the global default for the fixture origin', async () => {
       const access = await readAccess();
       assert.equal(access.ok, true);
